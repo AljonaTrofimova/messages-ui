@@ -1,0 +1,30 @@
+<nb-card [nbSpinner]="isLoading" *ngIf="messagesExist()" status="success">
+  <nb-card-header>
+    <div class="title">
+      <nb-icon icon="eye-outline"></nb-icon>
+      view all messages
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+
+    <nb-accordion multi>
+
+      <nb-accordion-item *ngFor="let message of messages" expanded="true">
+
+        <nb-accordion-item-header>
+          <div class="title">
+            <nb-icon icon="email-outline"></nb-icon>
+            {{"message #" + message.id + " (" + message.created + ")"}}
+          </div>
+        </nb-accordion-item-header>
+
+        <nb-accordion-item-body>
+          <div class="message-content">
+            {{message.text}}
+          </div>
+        </nb-accordion-item-body>
+
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-card-body>
+</nb-card>

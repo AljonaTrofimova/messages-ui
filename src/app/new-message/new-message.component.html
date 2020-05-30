@@ -1,0 +1,28 @@
+<nb-card accent="info">
+  <nb-card-header>
+    <div class="title">
+      <nb-icon icon="edit-outline"></nb-icon>
+      create new message
+    </div>
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="message-creation">
+      <div class="message-creation-input">
+        <input type="text"
+               nbInput
+               fullWidth
+               fieldSize="giant"
+               placeholder="Enter message text"
+               (keyup.enter)="createMessage(messageCreationInput.value); messageCreationInput.value=''"
+               #messageCreationInput>
+      </div>
+      <div class="message-creation-button">
+        <button nbButton
+                status="primary"
+                (click)="createMessage(messageCreationInput.value); messageCreationInput.value=''">send message
+        </button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

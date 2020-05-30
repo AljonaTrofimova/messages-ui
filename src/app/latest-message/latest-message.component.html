@@ -1,0 +1,24 @@
+<div class="latest-message">
+  <nb-card *ngIf="messageExist()" [nbSpinner]="isLoading" accent="primary">
+
+    <nb-card-header>
+      <div class="title">
+        <nb-icon icon="email-outline"></nb-icon>
+        latest message #{{latestMessage.id}}
+        ({{formattedMessageCreationDate()}})
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="message">
+        <div class="latest-message-content">
+          {{latestMessage.text}}
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <div class="total-saved">
+        total messages: {{latestMessage.totalSavedMessages}}
+      </div>
+    </nb-card-footer>
+  </nb-card>
+</div>
