@@ -1,4 +1,4 @@
 export class MessageCreationResponse {
-  status: string;
-  validationMessage: string;
+	status: string;
+	validationMessage: string;
 }
