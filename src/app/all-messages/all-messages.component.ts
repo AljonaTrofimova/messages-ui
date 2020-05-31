@@ -21,7 +21,7 @@ export class AllMessagesComponent implements OnInit {
       .subscribe(event => {
         setTimeout(() => {
           this.search();
-        }, 10);
+        }, 1000);
       });
   }
 

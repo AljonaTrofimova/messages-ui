@@ -14,6 +14,7 @@
                fullWidth
                fieldSize="giant"
                placeholder="Enter message text"
+               (keyup)="resetValidationMessage()"
                (keyup.enter)="createMessage(messageCreationInput.value); messageCreationInput.value=''"
                #messageCreationInput>
       </div>
@@ -23,6 +24,13 @@
                 (click)="createMessage(messageCreationInput.value); messageCreationInput.value=''">send message
         </button>
       </div>
+      <div class="creation-status" *ngIf="this.validationMessage&&this.validationMessage.length>0">
+        <nb-alert status="info">
+          {{this.validationMessage}}
+        </nb-alert>
+      </div>
     </div>
   </nb-card-body>
 </nb-card>
+
+

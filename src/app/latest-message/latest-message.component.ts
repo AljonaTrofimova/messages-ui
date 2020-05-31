@@ -11,18 +11,19 @@ import * as moment from 'moment';
   styleUrls: ['./latest-message.component.scss']
 })
 export class LatestMessageComponent implements OnInit {
-  latestMessage: LatestMessageWithCount;
+  latestMessage: LatestMessageWithCount = null;
   isLoading: boolean = false;
 
   constructor(private latestMessageSearchService: LatestMessageSearchService,
               private newMessageEventService: NewMessageEventService) {
-    this.latestMessage = null;
+
+
     this.newMessageEventService
       .receive()
       .subscribe(event => {
         setTimeout(() => {
-          this.search();
-        }, 10);
+            this.search();
+        }, 1000);
       });
   }
 
