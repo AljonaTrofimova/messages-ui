@@ -5,7 +5,7 @@ import {NewMessageEventService} from '../shared/service/new-message-event.servic
 import {MessageCreationResponse} from '../shared/model/message-creation-response.model';
 
 @Component({
-  selector: 'new-message',
+  selector: 'app-new-message',
   templateUrl: './new-message.component.html',
   styleUrls: ['./new-message.component.scss'],
 })
@@ -20,7 +20,7 @@ export class NewMessageComponent {
   }
 
   createMessage(messageText: string) {
-    if (messageText == null) {
+    if (messageText === null) {
       this.validationMessage = 'Cannot send empty message';
       return;
     } else if (messageText.length < 1) {
@@ -48,11 +48,11 @@ export class NewMessageComponent {
   generateValidationMessage(messageCreationResponse: MessageCreationResponse) {
     if (messageCreationResponse == null) return '';
 
-    if (messageCreationResponse == 'OK')
+    if (messageCreationResponse === 'OK')
       return 'Message was created with status OK';
-    else if (messageCreationResponse == 'UNPROCESSABLE_ENTITY')
+    else if (messageCreationResponse === 'UNPROCESSABLE_ENTITY')
       return 'Message was not created with status UNPROCESSABLE_ENTITY';
-    else if (messageCreationResponse == 'INTERNAL_SERVER_ERROR')
+    else if (messageCreationResponse === 'INTERNAL_SERVER_ERROR')
       return 'INTERNAL_SERVER_ERROR occurred';
     else return 'Unexpected error occured';
   }

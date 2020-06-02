@@ -1,5 +1,5 @@
 export class NewMessageEvent {
-	messageCreated: boolean = false;
+	messageCreated = false;
 
 	constructor(messageCreated: boolean) {
 		this.messageCreated = messageCreated;

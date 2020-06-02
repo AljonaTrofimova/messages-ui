@@ -6,13 +6,13 @@ import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 
 @Component({
-	selector: 'latest-message',
+	selector: 'app-latest-message',
 	templateUrl: './latest-message.component.html',
 	styleUrls: ['./latest-message.component.scss'],
 })
 export class LatestMessageComponent implements OnInit {
 	latestMessage: LatestMessageWithCount = null;
-	isLoading: boolean = false;
+	isLoading = false;
 
 	constructor(
 		private latestMessageSearchService: LatestMessageSearchService,

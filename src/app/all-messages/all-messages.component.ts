@@ -6,13 +6,13 @@ import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 
 @Component({
-	selector: 'all-messages',
+	selector: 'app-all-messages',
 	templateUrl: './all-messages.component.html',
 	styleUrls: ['./all-messages.component.scss'],
 })
 export class AllMessagesComponent implements OnInit {
 	messages: Message[] = [];
-	isLoading: boolean = false;
+	isLoading = false;
 
 	constructor(
 		private messageSearchService: MessageSearchService,
