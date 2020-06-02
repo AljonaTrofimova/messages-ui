@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { LatestMessageSearchService } from "../shared/service/latest-message-search.service";
-import { LatestMessageWithCount } from "../shared/model/latest-message.model";
-import { NewMessageEventService } from "../shared/service/new-message-event.service";
-import { finalize } from "rxjs/operators";
-import * as moment from "moment";
+import { Component, OnInit } from '@angular/core';
+import { LatestMessageSearchService } from '../shared/service/latest-message-search.service';
+import { LatestMessageWithCount } from '../shared/model/latest-message.model';
+import { NewMessageEventService } from '../shared/service/new-message-event.service';
+import { finalize } from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Component({
-	selector: "latest-message",
-	templateUrl: "./latest-message.component.html",
-	styleUrls: ["./latest-message.component.scss"],
+	selector: 'latest-message',
+	templateUrl: './latest-message.component.html',
+	styleUrls: ['./latest-message.component.scss'],
 })
 export class LatestMessageComponent implements OnInit {
 	latestMessage: LatestMessageWithCount = null;
@@ -16,7 +16,7 @@ export class LatestMessageComponent implements OnInit {
 
 	constructor(
 		private latestMessageSearchService: LatestMessageSearchService,
-		private newMessageEventService: NewMessageEventService
+		private newMessageEventService: NewMessageEventService,
 	) {
 		this.newMessageEventService.receive().subscribe(event => {
 			setTimeout(() => {
@@ -35,14 +35,14 @@ export class LatestMessageComponent implements OnInit {
 				},
 				error => {
 					console.log(error);
-				}
+				},
 			);
 	}
 
 	public formattedMessageCreationDate(): string {
-		if (this.latestMessage == null) return "";
-		else if (this.latestMessage.created == null) return "";
-		return moment(this.latestMessage.created).format("MMMM Do YYYY, HH:mm:ss");
+		if (this.latestMessage == null) return '';
+		else if (this.latestMessage.created == null) return '';
+		return moment(this.latestMessage.created).format('MMMM Do YYYY, HH:mm:ss');
 	}
 
 	ngOnInit(): void {

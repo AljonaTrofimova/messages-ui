@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { NewMessageEvent } from "../model/new-message-event.model";
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { NewMessageEvent } from '../model/new-message-event.model';
 
 @Injectable({
-	providedIn: "root"
+	providedIn: 'root',
 })
 export class NewMessageEventService {
 	private event = new Subject<NewMessageEvent>();
