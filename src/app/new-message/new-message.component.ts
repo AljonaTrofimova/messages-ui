@@ -10,7 +10,6 @@ import { MessageCreationResponse } from '../shared/model/message-creation-respon
 	styleUrls: ['./new-message.component.scss'],
 })
 export class NewMessageComponent {
-	messageCreationResponse: MessageCreationResponse;
 	newMessageCreated: boolean;
 	validationMessage: string = null;
 
@@ -31,9 +30,9 @@ export class NewMessageComponent {
 		this.newMessageCreated = false;
 
 		this.newMessageService.create(messageText).subscribe(
-			(response: MessageCreationResponse) => {
-				this.messageCreationResponse = response;
-				this.validationMessage = this.messageCreationResponse.validationMessage;
+			(response: any) => {
+				console.log(response);
+				this.validationMessage = this.generateValidationMessage(response);
 			},
 			error => {
 				console.log(error);
@@ -44,5 +43,17 @@ export class NewMessageComponent {
 
 	resetValidationMessage() {
 		this.validationMessage = null;
+	}
+
+	generateValidationMessage(messageCreationResponse: MessageCreationResponse) {
+		if (messageCreationResponse == null) return '';
+
+		if (messageCreationResponse == 'OK')
+			return 'Message was created with status OK';
+		else if (messageCreationResponse == 'UNPROCESSABLE_ENTITY')
+			return 'Message was not created with status UNPROCESSABLE_ENTITY';
+		else if (messageCreationResponse == 'INTERNAL_SERVER_ERROR')
+			return 'INTERNAL_SERVER_ERROR occurred';
+		else return 'Unexpected error occured';
 	}
 }
