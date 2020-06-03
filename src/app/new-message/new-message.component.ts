@@ -1,58 +1,59 @@
-import { Component } from '@angular/core';
-import { NewMessageEvent } from '../shared/model/new-message-event.model';
-import { NewMessageService } from '../shared/service/new-message.service';
-import { NewMessageEventService } from '../shared/service/new-message-event.service';
-import { MessageCreationResponse } from '../shared/model/message-creation-response.model';
+import {Component} from '@angular/core';
+import {NewMessageEvent} from '../shared/model/new-message-event.model';
+import {NewMessageService} from '../shared/service/new-message.service';
+import {NewMessageEventService} from '../shared/service/new-message-event.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
-	selector: 'app-new-message',
-	templateUrl: './new-message.component.html',
-	styleUrls: ['./new-message.component.scss'],
+  selector: 'app-new-message',
+  templateUrl: './new-message.component.html',
+  styleUrls: ['./new-message.component.scss'],
 })
 export class NewMessageComponent {
-	newMessageCreated: boolean;
-	validationMessage: string = null;
+  newMessageCreated: boolean;
+  validationMessage: string = null;
+  response: HttpErrorResponse = null;
 
-	constructor(
-		private newMessageService: NewMessageService,
-		private newMessageEventService: NewMessageEventService,
-	) {}
+  constructor(
+    private newMessageService: NewMessageService,
+    private newMessageEventService: NewMessageEventService,
+  ) {
+  }
 
-	createMessage(messageText: string) {
-		if (messageText === null) {
-			this.validationMessage = 'Cannot send empty message';
-			return;
-		} else if (messageText.length < 1) {
-			this.validationMessage = 'Cannot send empty message';
-			return;
-		}
+  createMessage(messageText: string) {
+    this.response = null;
+    if (messageText === null) {
+      this.validationMessage = 'Cannot send empty message';
+      return;
+    } else if (messageText.length < 1) {
+      this.validationMessage = 'Cannot send empty message';
+      return;
+    }
 
-		this.newMessageCreated = false;
+    this.newMessageCreated = false;
 
-		this.newMessageService.create(messageText).subscribe(
-			(response: any) => {
-				this.validationMessage = this.generateValidationMessage(response);
-			},
-			error => {
-				console.log(error);
-			},
-		);
-		this.newMessageEventService.send(new NewMessageEvent(true));
-	}
+    this.newMessageService.create(messageText).subscribe(
+      response => {
+        this.validationMessage = 'Message was created';
+      },
+      error => {
+        this.validationMessage = this.generateValidationMessage(error);
+      },
+    );
+    this.newMessageEventService.send(new NewMessageEvent(true));
+  }
 
-	resetValidationMessage() {
-		this.validationMessage = null;
-	}
+  resetValidationMessage() {
+    this.validationMessage = null;
+  }
 
-	generateValidationMessage(messageCreationResponse: MessageCreationResponse) {
-		if (messageCreationResponse == null) return '';
-
-		if (messageCreationResponse === 'OK')
-			return 'Message was created with status OK';
-		else if (messageCreationResponse === 'UNPROCESSABLE_ENTITY')
-			return 'Message was not created with status UNPROCESSABLE_ENTITY';
-		else if (messageCreationResponse === 'INTERNAL_SERVER_ERROR')
-			return 'INTERNAL_SERVER_ERROR occurred';
-		else return 'Unexpected error occured';
-	}
+  generateValidationMessage(httpErrorResponse: HttpErrorResponse) {
+    if (httpErrorResponse == null) return 'Message was created';
+    else
+      return (
+        'Unexpected error occured with status ' +
+        httpErrorResponse.status +
+        ' and message ' + httpErrorResponse.message
+      );
+  }
 }
