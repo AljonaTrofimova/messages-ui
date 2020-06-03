@@ -33,7 +33,7 @@ export class NewMessageComponent {
     this.newMessageCreated = false;
 
     this.newMessageService.create(messageText).subscribe(
-      response => {
+      () => {
         this.validationMessage = 'Message was created';
       },
       error => {
@@ -48,8 +48,7 @@ export class NewMessageComponent {
   }
 
   generateValidationMessage(httpErrorResponse: HttpErrorResponse) {
-    if (httpErrorResponse == null) return 'Message was created';
-    else
+    if (httpErrorResponse != null)
       return (
         'Unexpected error occured with status ' +
         httpErrorResponse.status +

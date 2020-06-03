@@ -19,7 +19,7 @@ export class NewMessageService {
 			params: httpParams,
 			headers: httpHeaders,
 		};
-		return this.http.post<any>(
+		return this.http.post<(any)>(
 			'http://localhost:8080/messages/message?text=' + messageText,
 			httpOptions,
 		);
